@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
+use App\Model\Grade;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -12,8 +13,8 @@ class GradeController extends Controller
 
   public function index()
   {
-
-      return view('pages.grades.index');
+$this->data['grades'] = Grade::query()->get()->all() ;
+      return view('pages.grades.index',$this->data);
 
   }
 
