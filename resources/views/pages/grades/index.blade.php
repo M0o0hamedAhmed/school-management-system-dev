@@ -27,9 +27,19 @@
     <!-- row -->
     <!-- main body -->
     <div class="row">
+
         <div class="col-xl-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li> {{$error}} </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('Grades_trans.add_Grade') }}
                     </button>
@@ -39,9 +49,9 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Notes</th>
-                                <th>Processes</th>
+                                <th> {{trans('Grades_trans.Name')}}</th>
+                                <th> {{trans('Grades_trans.Notes')}}</th>
+                                <th> {{trans('Grades_trans.Processes')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -102,13 +112,13 @@
                                                       rows="3"></textarea>
                                         </div>
                                         <br><br>
-                                </form>
-                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
                                     <button type="submit"
                                             class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                </div>
+                                </form>
                                 </div>
 
                             </div>

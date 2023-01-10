@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGradeRequest;
 use App\Model\Grade;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,9 @@ $this->data['grades'] = Grade::query()->get()->all() ;
   }
 
 
-  public function store(Request $request)
+  public function store(StoreGradeRequest $request)
   {
-
+$validated = $request->validated();
   }
 
   /**
