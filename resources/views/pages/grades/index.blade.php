@@ -57,6 +57,7 @@
                             <tbody>
                             @foreach($grades as $grade)
                             <tr>
+
                                 <td>{{$loop->index+1}}</td>
                                 <td>{{$grade->Name}} </td>
                                 <td>{{$grade->Notes}} </td>

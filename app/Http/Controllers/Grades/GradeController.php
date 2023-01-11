@@ -12,68 +12,77 @@ class GradeController extends Controller
 {
 
 
-  public function index()
-  {
-$this->data['grades'] = Grade::query()->get()->all() ;
-      return view('pages.grades.index',$this->data);
+    public function index()
+    {
+        $this->data['grades'] = Grade::query()->get()->all() ;
+        return view('pages.grades.index',$this->data);
 
-  }
-
-
-  public function create()
-  {
-      return view('Grades');
-  }
+    }
 
 
-  public function store(StoreGradeRequest $request)
-  {
-$validated = $request->validated();
-  }
+    public function create()
+    {
+        return view('Grades');
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
 
-  }
+    public function store(StoreGradeRequest $request)
+    {
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
+        Grade::query()->create([
+            'Notes' => $request->Notes,
+            'Name' => [
+                'ar' => $request->Name,
+                'en' => $request->Name_en ]]);
 
-  }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
+        return redirect('Grades');
+//$validated = $request->validated();
+    }
 
-  }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
+    }
 
-  }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+
+    }
 
 }
 
