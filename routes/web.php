@@ -17,21 +17,14 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | contains the "web" middleware group. Now create something great!
 |
 */
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::group(
-    [
-        'prefix' => LaravelLocalization::SetLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect','auth']
-//        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localViewPath','auth']
-    ],function(){
-    Route::get('/', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-    Route::group(['namespace' => 'Grades'],function (){
-        Route::resource('Grades', 'GradeController');
+Route::group(['prefix' => LaravelLocalization::SetLocale(),
+               'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'auth', 'verified']], function () {
+    Route::get('/', function () {return view('dashboard');})->name('dashboard');
+    Route::group([ 'namespace' => 'Grades'], function () {
+        Route::resource('Grades', 'GradeController')->names('Grades');
+        Route::delete('delete/{id}', [GradeController::class,'delete'])->name('delete');
 
     });
 }

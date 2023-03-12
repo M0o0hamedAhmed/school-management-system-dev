@@ -5,6 +5,8 @@
 @endsection
 
 @section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -15,7 +17,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                    <li class="breadcrumb-item"><a href="#" class="default-color">{{trans('main_trans.main_page')}}</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="default-color">{{trans('main_trans.main_page')}}</a>
+                    </li>
                     <li class="breadcrumb-item active">{{trans('main_trans.Grades')}}</li>
                 </ol>
             </div>
@@ -31,21 +34,21 @@
         <div class="col-xl-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li> {{$error}} </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li> {{$error}} </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('Grades_trans.add_Grade') }}
                     </button>
                     <br><br>
                     <div class="table-responsive">
-                        <table id="datatable" class="table table-striped table-bordered p-0">
+                        <table id="dataTable" class="table table-striped table-bordered p-0">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -54,23 +57,22 @@
                                 <th> {{trans('Grades_trans.Processes')}}</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            @foreach($grades as $grade)
-                            <tr>
+                            {{--                            <tbody>--}}
+                            {{--                            @foreach($grades as $grade)--}}
+                            {{--                            <tr>--}}
 
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$grade->Name}} </td>
-                                <td>{{$grade->Notes}} </td>
+                            {{--                                <td>{{$loop->index+1}}</td>--}}
+                            {{--                                <td>{{$grade->Name}} </td>--}}
+                            {{--                                <td>{{$grade->Notes}} </td>--}}
 
 
-                            </tr>
-                            @endforeach
-                            </tbody>
+                            {{--                            </tr>--}}
+                            {{--                            @endforeach--}}
+                            {{--                            </tbody>--}}
 
 
                         </table>
                     </div>
-
 
 
                     <!-- add_modal_Grade -->
@@ -113,13 +115,13 @@
                                                       rows="3"></textarea>
                                         </div>
                                         <br><br>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
-                                    <button type="submit"
-                                            class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
-                                </div>
-                                </form>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                                            <button type="submit"
+                                                    class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                        </div>
+                                    </form>
                                 </div>
 
                             </div>
@@ -133,5 +135,40 @@
     <!-- row closed -->
 @endsection
 @section('js')
+    {{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $('#dataTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('Grades.index') !!}',
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'Name.' + "{{ app()->getLocale() }}", name: 'Name'},
+                    {data: 'Notes', name: 'Notes'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ],
 
+
+            });
+
+            $('#dataTable').on('click', '.delete', function () {
+                var id = $(this).data('id');
+                if (confirm('Are you sure you want to delete this record?')) {
+                    $.ajax({
+                        url: '{{ route('delete', '' ) }}/' + id,
+                        type: 'DELETE',
+                        // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        success: function () {
+                            $('#dataTable').DataTable().ajax.reload();
+                        },
+                        error: function (){
+                            console.error('wrong')
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
