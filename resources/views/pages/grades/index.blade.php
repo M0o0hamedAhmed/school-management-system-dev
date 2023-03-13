@@ -149,24 +149,24 @@
                     {data: 'Notes', name: 'Notes'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
-
-
             });
+        });
 
-            $('#dataTable').on('click', '.delete', function () {
-                var id = $(this).data('id');
-                if (confirm('Are you sure you want to delete this record?')) {
-                    $.ajax({
-                        url: '{{ route('delete', '' ) }}/' + id,
-                        type: 'DELETE',
-                        // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        success: function () {
-                            $('#dataTable').DataTable().ajax.reload();
-                        },
-                        error: function (){
-                            console.error('wrong')
-                        }
-                    });
+        $('#dataTable').on('click', '.delete', function () {
+            var id = $(this).data("id");
+            confirm("Are You sure want to delete this Post!");
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "DELETE",
+                url: "{{ route('grades.delete',"") }}"+'/'+id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
                 }
             });
         });

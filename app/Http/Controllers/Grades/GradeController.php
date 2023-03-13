@@ -29,7 +29,6 @@ class GradeController extends Controller
         return view('pages.grades.index')->with('grades', $grades);
 //        $this->data['grades'] = Grade::query()->get()->all() ;
 //        return view('pages.grades.index',$this->data);
-
     }
 
 
@@ -109,9 +108,16 @@ class GradeController extends Controller
 
     public function delete($id)
     {
-        $grade = Grade::find($id);
-        $grade->delete();
-        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
+//        return view('pages.grades.index')->with('grades');
+
+
+        Grade::find($id)->delete();
+//
+        return response()->json(['success'=>'Post deleted successfully.']);
+
+//        $grade = Grade::find($id);
+//        $grade->delete();
+//        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
 
     }
 
