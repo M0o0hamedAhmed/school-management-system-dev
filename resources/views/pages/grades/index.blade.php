@@ -163,7 +163,7 @@
                 type: "DELETE",
                 url: "{{ route('grades.delete',"") }}"+'/'+id,
                 success: function (data) {
-                    table.draw();
+                    $('#dataTable').DataTable().ajax.reload();
                 },
                 error: function (data) {
                     console.log('Error:', data);
