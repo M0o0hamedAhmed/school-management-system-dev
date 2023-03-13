@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\api\Grades\GradeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function () {
-//    Route::get('all',[GradeController::class,'index'])->name('all');
 });

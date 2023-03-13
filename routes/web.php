@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Grades\GradeController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -25,8 +24,7 @@ Route::group(['prefix' => LaravelLocalization::SetLocale(),
         return view('dashboard');
     })->name('dashboard');
     Route::group(['namespace' => 'Grades'], function () {
-        Route::resource('Grades', 'GradeController')->names('Grades');
-        Route::DELETE('delete/{id}', [GradeController::class, 'delete'])->name('grades.delete');
+        Route::resource('Grades', GradeController::class)->names('Grades');
 
     });
 }

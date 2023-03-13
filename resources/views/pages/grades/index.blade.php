@@ -43,7 +43,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="button x-small " data-toggle="modal" data-target="#exampleModal">
                         {{ trans('Grades_trans.add_Grade') }}
                     </button>
                     <br><br>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- add_form -->
-                                    <form action="{{ route('Grades.store') }}" method="POST">
+                                    <form id="myForm" action="{{ route('Grades.store') }}" method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="col">
@@ -138,8 +138,9 @@
     {{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
+        // Show All Data
         $(function () {
-            $('#dataTable').DataTable({
+           let table = $('#dataTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('Grades.index') !!}',
@@ -150,25 +151,59 @@
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
             });
+            table.addIndexColumn();
+            table.draw();
+
         });
 
+
+        //  Delete item
         $('#dataTable').on('click', '.delete', function () {
             var id = $(this).data("id");
-            confirm("Are You sure want to delete this Post!");
-
+            // confirm("Are You sure want to delete this Post!");
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "DELETE",
-                url: "{{ route('grades.delete',"") }}"+'/'+id,
+                url: "{{ route('Grades.destroy',"") }}" + '/' + id,
                 success: function (data) {
                     $('#dataTable').DataTable().ajax.reload();
+                    // toastr.success('تم الحذف  بنجاح');
+                    toastr.success('{{ trans('toastr.deleted_successfully')}}');
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
         });
+
+
+
+        $(function (){
+            $('#myForm').submit(function (event){
+               event.preventDefault();
+               const formData = $(this).serializeArray();
+
+               $.ajax({
+                   url: "{{ route('Grades.store') }}" ,
+                   method :'POST',
+                   data :formData,
+                   dataType:'json',
+                   success:function (response){
+                       $('#dataTable').DataTable().ajax.reload();
+                       $('.close').click()
+                       $('#myForm').trigger('reset');
+
+                       toastr.success('{{ trans('toastr.deleted_successfully')}}');
+
+                   },
+                   error: function (xhr, status, error){
+                       toastr.error('حدث خطا');
+
+                   }
+               })
+            });
+        })
     </script>
 @endsection

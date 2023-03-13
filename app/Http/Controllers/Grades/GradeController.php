@@ -1,6 +1,5 @@
 <?php
 
-namespace App\Http\Controllers;
 namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
@@ -17,18 +16,15 @@ class GradeController extends Controller
     {
         if ($request->ajax()) {
             $data = Grade::select('*');
-            return DataTables::of($data)->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '<a  class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
-                    return $btn;
-                })
-                ->rawColumns(['action'])->make(true);
+            return DataTables::of($data)->addIndexColumn()->addColumn('action', function ($row) {
+                $btn = '<a  class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>
+                            <a  class="edit btn btn-primary btn-sm" data-id="' . $row->id . '" data-toggle="modal" data-target="#exampleModal">Edit</a>';
+                return $btn;
+            })->rawColumns(['action'])->addIndexColumn()->make(true);
         }
 
         $grades = Grade::query()->get()->all();
         return view('pages.grades.index')->with('grades', $grades);
-//        $this->data['grades'] = Grade::query()->get()->all() ;
-//        return view('pages.grades.index',$this->data);
     }
 
 
@@ -46,18 +42,12 @@ class GradeController extends Controller
             'Name' => [
                 'ar' => $request->Name,
                 'en' => $request->Name_en]]);
-
-
-        return redirect('Grades');
-//$validated = $request->validated();
+//        return redirect()->route('companies.index')->with('success','Company has been created successfully.');
+        return response()->json(['success' => 'Post deleted successfully.']);
+//        return redirect('Grades');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
+
     public function show($id)
     {
 
@@ -93,17 +83,9 @@ class GradeController extends Controller
      */
     public function destroy($id)
     {
-
-//        try {
-//            Grade::find($id)->delete();
-//            return response(['message'=>'تم الحذف بنجاح','status'=>200],200);
-//        }
-//        catch (\Exception $ex){
-//            return response(['message'=>$ex->getMessage(),'status'=>400]);
-//        }
-        $grade = Grade::find($id);
-        $grade->delete();
-        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
+        Grade::find($id)->delete();
+        return response()->json(['success' => 'Post deleted successfully.']);
+//        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
     }
 
     public function delete($id)
@@ -112,8 +94,7 @@ class GradeController extends Controller
 
 
         Grade::find($id)->delete();
-//
-        return response()->json(['success'=>'Post deleted successfully.']);
+        return response()->json(['success' => 'Post deleted successfully.']);
 
 //        $grade = Grade::find($id);
 //        $grade->delete();
