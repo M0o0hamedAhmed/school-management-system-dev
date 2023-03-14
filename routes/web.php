@@ -20,13 +20,9 @@ require __DIR__ . '/auth.php';
 
 Route::group(['prefix' => LaravelLocalization::SetLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'auth', 'verified']], function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::group(['namespace' => 'Grades'], function () {
-        Route::resource('Grades', GradeController::class)->names('Grades');
+    Route::get('/', function () {return view('dashboard');})->name('dashboard');
+    Route::resource('Grades', GradeController::class)->names('Grades');
 
-    });
 }
 );
 

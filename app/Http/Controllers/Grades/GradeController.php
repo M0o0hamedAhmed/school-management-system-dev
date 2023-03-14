@@ -16,7 +16,7 @@ class GradeController extends Controller
     {
         if ($request->ajax()) {
             $data = Grade::select('*');
-            return DataTables::of($data)->addIndexColumn()->addColumn('action', function ($row) {
+            return DataTables::of($data)->addColumn('action', function ($row) {
                 $btn = '<a  class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>
                             <a  class="edit btn btn-primary btn-sm" data-id="' . $row->id . '" data-toggle="modal" data-target="#exampleModal">Edit</a>';
                 return $btn;
@@ -61,7 +61,8 @@ class GradeController extends Controller
      */
     public function edit($id)
     {
-
+        $data = Grade::find($id);
+        return response()->json($data, 200);
     }
 
     /**
@@ -70,9 +71,14 @@ class GradeController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update($id)
+    public function update(StoreGradeRequest $request,$id)
     {
-
+        Grade::query()->update([
+            'Notes' => $request->Notes,
+            'Name' => [
+                'ar' => $request->Name,
+                'en' => $request->Name_en]]);
+        return response()->json(['success' => 'Post deleted successfully.']);
     }
 
     /**
@@ -88,19 +94,6 @@ class GradeController extends Controller
 //        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
     }
 
-    public function delete($id)
-    {
-//        return view('pages.grades.index')->with('grades');
-
-
-        Grade::find($id)->delete();
-        return response()->json(['success' => 'Post deleted successfully.']);
-
-//        $grade = Grade::find($id);
-//        $grade->delete();
-//        return redirect()->route('Grades.index')->with('success', 'Grade deleted successfully');
-
-    }
 
 }
 

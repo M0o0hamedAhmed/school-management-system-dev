@@ -140,7 +140,7 @@
     <script>
         // Show All Data
         $(function () {
-           let table = $('#dataTable').DataTable({
+            let table = $('#dataTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('Grades.index') !!}',
@@ -151,10 +151,89 @@
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
             });
-            table.addIndexColumn();
             table.draw();
 
         });
+
+        // Create
+        {{--$(function () {--}}
+        {{--    $('#myForm').submit(function (event) {--}}
+        {{--        event.preventDefault();--}}
+        {{--        const formData = $(this).serializeArray();--}}
+
+        {{--        $.ajax({--}}
+        {{--            url: "{{ route('Grades.store') }}",--}}
+        {{--            method: 'POST',--}}
+        {{--            data: formData,--}}
+        {{--            dataType: 'json',--}}
+        {{--            success: function (response) {--}}
+        {{--                $('#dataTable').DataTable().ajax.reload();--}}
+        {{--                $('.close').click()--}}
+        {{--                $('#myForm').trigger('reset');--}}
+
+        {{--                toastr.success('{{ trans('toastr.deleted_successfully')}}');--}}
+
+        {{--            },--}}
+        {{--            error: function (xhr, status, error) {--}}
+        {{--                toastr.error('حدث خطا');--}}
+
+        {{--            }--}}
+        {{--        })--}}
+        {{--    });--}}
+        {{--})--}}
+
+        //Edit
+        $('#dataTable').on('click', '.edit', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "GET",
+                url: "{{ route('Grades.edit',"id") }}".replace("id", id),
+                success: function (data) {
+                    $('input[name="Name"]').val(data.Name.ar)
+                    $('input[name="Name_en"]').val(data.Name.en)
+                    $('textarea[name="Notes"]').val(data.Notes)
+                },
+                error: function (data) {
+                    toastr.error(data);
+
+                }
+
+            })
+
+        })
+
+        // Update
+        $(function () {
+            $('#myForm').submit(function (event) {
+                event.preventDefault();
+                const formData = $(this).serializeArray();
+                let id = $(this).data('id')
+                $.ajax({
+                    url: "{{ route('Grades.update',"") }}" + '/' + id,
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        toastr.success(' Success');
+
+                        $('#dataTable').DataTable().ajax.reload();
+                        $('.close').click()
+                        $('#myForm').trigger('reset');
+
+                        toastr.success('{{ trans('toastr.deleted_successfully')}}');
+
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error("{{ route('Grades.update',"") }}" + '/' + id)
+
+                    }
+                })
+            });
+        })
 
 
         //  Delete item
@@ -178,32 +257,5 @@
             });
         });
 
-
-
-        $(function (){
-            $('#myForm').submit(function (event){
-               event.preventDefault();
-               const formData = $(this).serializeArray();
-
-               $.ajax({
-                   url: "{{ route('Grades.store') }}" ,
-                   method :'POST',
-                   data :formData,
-                   dataType:'json',
-                   success:function (response){
-                       $('#dataTable').DataTable().ajax.reload();
-                       $('.close').click()
-                       $('#myForm').trigger('reset');
-
-                       toastr.success('{{ trans('toastr.deleted_successfully')}}');
-
-                   },
-                   error: function (xhr, status, error){
-                       toastr.error('حدث خطا');
-
-                   }
-               })
-            });
-        })
     </script>
 @endsection
