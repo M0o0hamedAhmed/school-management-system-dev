@@ -43,7 +43,7 @@
                             </ul>
                         </div>
                     @endif
-                    <button type="button" class="button x-small " data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="button x-small " data-toggle="modal" data-target="#addModel">
                         {{ trans('Grades_trans.add_Grade') }}
                     </button>
                     <br><br>
@@ -76,7 +76,7 @@
 
 
                     <!-- add_modal_Grade -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="addModel" tabindex="-1" role="dialog"
                          aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -91,8 +91,64 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- add_form -->
-                                    <form id="myForm" action="{{ route('Grades.store') }}" method="POST">
+                                    <form id="myFormAdd"  method="POST">
                                         @csrf
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="Name"
+                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_ar') }}
+                                                    :</label>
+                                                <input id="Name" type="text" name="Name" class="form-control">
+                                            </div>
+                                            <div class="col">
+                                                <label for="Name_en"
+                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_en') }}
+                                                    :</label>
+                                                <input type="text" class="form-control" name="Name_en" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label
+                                                for="exampleFormControlTextarea1">{{ trans('Grades_trans.Notes') }}
+                                                :</label>
+                                            <textarea class="form-control" name="Notes" id="exampleFormControlTextarea1"
+                                                      rows="3"></textarea>
+                                        </div>
+                                        <br><br>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                                            <button type="submit"
+                                                    class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{--                    Edit Model --}}
+
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
+                                        id="exampleModalLabel">
+                                        {{ trans('Grades_trans.edit_Grade') }}
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- edit_form -->
+                                    <form id="myFormEdit"  method="POST">
+                                        @csrf
+                                                <input  type="hidden" name="id" class="form-control" >
                                         <div class="row">
                                             <div class="col">
                                                 <label for="Name"
@@ -155,32 +211,32 @@
 
         });
 
-        // Create
-        {{--$(function () {--}}
-        {{--    $('#myForm').submit(function (event) {--}}
-        {{--        event.preventDefault();--}}
-        {{--        const formData = $(this).serializeArray();--}}
+        // Store
+        $(function () {
+            $('#myFormAdd').submit(function (event) {
+                event.preventDefault();
+                const formData = $(this).serializeArray();
 
-        {{--        $.ajax({--}}
-        {{--            url: "{{ route('Grades.store') }}",--}}
-        {{--            method: 'POST',--}}
-        {{--            data: formData,--}}
-        {{--            dataType: 'json',--}}
-        {{--            success: function (response) {--}}
-        {{--                $('#dataTable').DataTable().ajax.reload();--}}
-        {{--                $('.close').click()--}}
-        {{--                $('#myForm').trigger('reset');--}}
+                $.ajax({
+                    url: "{{ route('Grades.store') }}",
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#myFormAdd').trigger('reset');
+                        $('#dataTable').DataTable().ajax.reload();
+                        $('.close').click()
 
-        {{--                toastr.success('{{ trans('toastr.deleted_successfully')}}');--}}
+                        toastr.success('{{ trans('toastr.added_successfully')}}');
 
-        {{--            },--}}
-        {{--            error: function (xhr, status, error) {--}}
-        {{--                toastr.error('حدث خطا');--}}
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('{{trans('toastr.error_occurred')}}}');
 
-        {{--            }--}}
-        {{--        })--}}
-        {{--    });--}}
-        {{--})--}}
+                    }
+                })
+            });
+        })
 
         //Edit
         $('#dataTable').on('click', '.edit', function (e) {
@@ -196,9 +252,10 @@
                     $('input[name="Name"]').val(data.Name.ar)
                     $('input[name="Name_en"]').val(data.Name.en)
                     $('textarea[name="Notes"]').val(data.Notes)
+                    $('input[name="id"]').val(data.id)
                 },
                 error: function (data) {
-                    toastr.error(data);
+                    toastr.error('{{trans('toastr.error_occurred')}}}');
 
                 }
 
@@ -208,28 +265,29 @@
 
         // Update
         $(function () {
-            $('#myForm').submit(function (event) {
+            $('#myFormEdit').submit(function (event) {
                 event.preventDefault();
                 const formData = $(this).serializeArray();
-                let id = $(this).data('id')
+                let id = $('input[name="id"]').val()
                 $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'PUT',
                     url: "{{ route('Grades.update',"") }}" + '/' + id,
-                    method: 'POST',
+                    {{--url: "{{ route('Grades.update', ['id' => '']) }}" + '/' + id,--}}
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
-                        toastr.success(' Success');
-
+                        $('#myFormEditphp').trigger('reset');
                         $('#dataTable').DataTable().ajax.reload();
                         $('.close').click()
-                        $('#myForm').trigger('reset');
 
-                        toastr.success('{{ trans('toastr.deleted_successfully')}}');
+                        toastr.success('{{ trans('toastr.added_successfully')}}');
 
                     },
                     error: function (xhr, status, error) {
-                        toastr.error("{{ route('Grades.update',"") }}" + '/' + id)
-
+                        toastr.error('{{trans('toastr.error_occurred')}}}');
                     }
                 })
             });
@@ -252,7 +310,7 @@
                     toastr.success('{{ trans('toastr.deleted_successfully')}}');
                 },
                 error: function (data) {
-                    console.log('Error:', data);
+                    toastr.error('{{trans('toastr.error_occurred')}}');
                 }
             });
         });

@@ -18,7 +18,7 @@ class GradeController extends Controller
             $data = Grade::select('*');
             return DataTables::of($data)->addColumn('action', function ($row) {
                 $btn = '<a  class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>
-                            <a  class="edit btn btn-primary btn-sm" data-id="' . $row->id . '" data-toggle="modal" data-target="#exampleModal">Edit</a>';
+                            <a  class="edit btn btn-primary btn-sm" data-id="' . $row->id . '" data-toggle="modal" data-target="#editModal">Edit</a>';
                 return $btn;
             })->rawColumns(['action'])->addIndexColumn()->make(true);
         }
@@ -73,7 +73,7 @@ class GradeController extends Controller
      */
     public function update(StoreGradeRequest $request,$id)
     {
-        Grade::query()->update([
+        Grade::query()->find($id)->update([
             'Notes' => $request->Notes,
             'Name' => [
                 'ar' => $request->Name,
