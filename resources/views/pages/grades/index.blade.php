@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{trans('main_trans.Grades')}}
+    {{trans('main.Grades')}}
 @endsection
 
 @section('css')
@@ -13,13 +13,13 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="mb-0"> {{trans('main_trans.Grades')}}</h4>
+                <h4 class="mb-0"> {{trans('main.Grades')}}</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                    <li class="breadcrumb-item"><a href="#" class="default-color">{{trans('main_trans.main_page')}}</a>
+                    <li class="breadcrumb-item"><a href="#" class="default-color">{{trans('main.main_page')}}</a>
                     </li>
-                    <li class="breadcrumb-item active">{{trans('main_trans.Grades')}}</li>
+                    <li class="breadcrumb-item active">{{trans('main.Grades')}}</li>
                 </ol>
             </div>
         </div>
@@ -44,7 +44,7 @@
                         </div>
                     @endif
                     <button type="button" class="button x-small " data-toggle="modal" data-target="#addModel">
-                        {{ trans('Grades_trans.add_Grade') }}
+                        {{ trans('grades.add_Grade') }}
                     </button>
                     <br><br>
                     <div class="table-responsive">
@@ -52,9 +52,9 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th> {{trans('Grades_trans.Name')}}</th>
-                                <th> {{trans('Grades_trans.Notes')}}</th>
-                                <th> {{trans('Grades_trans.Processes')}}</th>
+                                <th> {{trans('grades.Name')}}</th>
+                                <th> {{trans('grades.Notes')}}</th>
+                                <th> {{trans('grades.Processes')}}</th>
                             </tr>
                             </thead>
                             {{--                            <tbody>--}}
@@ -83,7 +83,7 @@
                                 <div class="modal-header">
                                     <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                         id="exampleModalLabel">
-                                        {{ trans('Grades_trans.add_Grade') }}
+                                        {{ trans('grades.add_Grade') }}
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -96,20 +96,20 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="Name"
-                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_ar') }}
+                                                       class="mr-sm-2">{{ trans('grades.stage_name_ar') }}
                                                     :</label>
                                                 <input id="Name" type="text" name="Name" class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="Name_en"
-                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_en') }}
+                                                       class="mr-sm-2">{{ trans('grades.stage_name_en') }}
                                                     :</label>
                                                 <input type="text" class="form-control" name="Name_en" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label
-                                                for="exampleFormControlTextarea1">{{ trans('Grades_trans.Notes') }}
+                                                for="exampleFormControlTextarea1">{{ trans('grades.Notes') }}
                                                 :</label>
                                             <textarea class="form-control" name="Notes" id="exampleFormControlTextarea1"
                                                       rows="3"></textarea>
@@ -117,9 +117,9 @@
                                         <br><br>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                                                    data-dismiss="modal">{{ trans('grades.Close') }}</button>
                                             <button type="submit"
-                                                    class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                                    class="btn btn-success">{{ trans('grades.submit') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -138,7 +138,7 @@
                                 <div class="modal-header">
                                     <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title"
                                         id="exampleModalLabel">
-                                        {{ trans('Grades_trans.edit_Grade') }}
+                                        {{ trans('grades.edit_Grade') }}
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -152,20 +152,20 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="Name"
-                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_ar') }}
+                                                       class="mr-sm-2">{{ trans('grades.stage_name_ar') }}
                                                     :</label>
                                                 <input id="Name" type="text" name="Name" class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="Name_en"
-                                                       class="mr-sm-2">{{ trans('Grades_trans.stage_name_en') }}
+                                                       class="mr-sm-2">{{ trans('grades.stage_name_en') }}
                                                     :</label>
                                                 <input type="text" class="form-control" name="Name_en" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label
-                                                for="exampleFormControlTextarea1">{{ trans('Grades_trans.Notes') }}
+                                                for="exampleFormControlTextarea1">{{ trans('grades.Notes') }}
                                                 :</label>
                                             <textarea class="form-control" name="Notes" id="exampleFormControlTextarea1"
                                                       rows="3"></textarea>
@@ -173,9 +173,9 @@
                                         <br><br>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                                                    data-dismiss="modal">{{ trans('grades.Close') }}</button>
                                             <button type="submit"
-                                                    class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                                    class="btn btn-success">{{ trans('grades.submit') }}</button>
                                         </div>
                                     </form>
                                 </div>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template" />
-    <meta name="author" content="potenzaglobalsolutions.com" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="keywords" content="HTML5 Template"/>
+    <meta name="description" content="Webmin - Bootstrap 4 & Angular 5 Admin Dashboard Template"/>
+    <meta name="author" content="potenzaglobalsolutions.com"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     @include('layouts.head')
 </head>
 
@@ -32,7 +32,7 @@ preloader -->
     <!--=================================
  Main content -->
     <!-- main-content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper " style="width: auto">
 
         @yield('page-header')
 
@@ -45,12 +45,11 @@ preloader -->
 footer -->
 
         @include('layouts.footer')
-    </div><!-- main content wrapper end-->
-</div>
+    </div>
+    <!-- main content wrapper end-->
 
 
-<!--=================================
-footer -->
+    <!--================================= footer -->
 
 @include('layouts.footer-scripts')
 

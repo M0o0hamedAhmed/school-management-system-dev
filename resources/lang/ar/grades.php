@@ -9,4 +9,5 @@ return [
     "Close" => "اغلاق",
     "submit" => "تاكيد",
     "add_Grade" => "اضافة مرحله دراسيه",
+    'list_of_academic_levels' => 'قائمة المراحل الدراسيه'
 ];
