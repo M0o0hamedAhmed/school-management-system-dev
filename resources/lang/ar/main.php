@@ -19,4 +19,12 @@ return [
     'attendance'=> 'الحضور والغياب',
     'users'=> 'المستخدمين',
     'classes'=> 'الحصص',
+    'proMina' => 'شركة برو مينا',
+    'task' => 'مهمه',
+    'dropzone' => 'دروب زون',
+    'create-album' => 'انشاء البوم',
+    'album_name' => 'اسم الالبوم',
+    'Album' => 'البوم',
+    "Close" => "اغلاق",
+    "submit" => "تاكيد",
 ];

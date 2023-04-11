@@ -8,7 +8,8 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
                             <div class="pull-left"><i class="ti-home"></i><span
-                                    class="right-nav-text">{{trans('main.main')}}</span>
+                                    class="right-nav-text">
+                                    {{trans('main.main')}}</span>
                             </div>
                             <div class="clearfix"></div>
                         </a>
@@ -17,6 +18,32 @@
                     <!-- menu title -->
                     <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">{{trans('main.mora_soft')}} </li>
                     <!-- menu item Elements-->
+
+                    <!--  ProMina Task-->
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#dropzone">
+                            <div class="pull-left"><i class="ti-calendar"></i><span
+                                    class="right-nav-text">{{trans('main.dropzone')}}</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="dropzone" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('dropzone.index')}}">{{trans('main.task')}} </a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#createAlbum">
+                            <div class="pull-left"><i class="ti-calendar"></i><span
+                                    class="right-nav-text">{{trans('main.create-album')}}</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="createAlbum" class="collapse" data-parent="#sidebarnav">
+                            <li><a href="{{route('album.index')}}">{{trans('main.create-album')}} </a></li>
+                        </ul>
+                    </li>
+
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                             <div class="pull-left"><i class="ti-palette"></i><span
@@ -26,7 +53,6 @@
                         </a>
                         <ul id="elements" class="collapse" data-parent="#sidebarnav">
                             <li><a href="{{route('Grades.index')}}">{{trans('grades.list_of_academic_levels')}}</a></li>
-
                         </ul>
                     </li>
                     <!-- menu item classes-->

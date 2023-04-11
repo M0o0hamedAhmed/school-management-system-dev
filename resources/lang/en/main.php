@@ -19,4 +19,8 @@ return [
     'attendance' => 'Attendance',
     'users' => 'Users',
     'classes' => 'Classes',
+    'proMina' => 'ProMina Agency',
+    'task' => 'Task',
+    'dropzone' => 'Dropzone',
+    'create-album' => 'Create Album'
 ];
