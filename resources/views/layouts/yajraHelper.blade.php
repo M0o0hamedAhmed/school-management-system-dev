@@ -162,6 +162,7 @@
                     $('#editOrCreate').modal('hide')
                 },
                 error: function (data) {
+                    console.log(data)
                     if (data.status === 500) {
                         toastr.error('Oops .. There is an error');
                     } else if (data.status === 422) {

@@ -54,11 +54,22 @@ class ToDoListController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        Task::query()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => 'to_do',
+            'user_id' => Auth::user()->id
+        ]);
+
+        return response()->json(
+            [
+                'status'  => 200,
+                'message' => "Data Added Successfully"
+            ]);
     }
 
     /**

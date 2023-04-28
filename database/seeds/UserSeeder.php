@@ -16,6 +16,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
+        $super_admin = new User();
+        $super_admin->email = "admin@admin.com";
+        $super_admin->password = bcrypt('admin@admin.com');
+        $super_admin->name = "Mohamed Ahmed";
+        $super_admin->save();
     }
 }

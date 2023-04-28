@@ -59,18 +59,18 @@
                             </tr>
                             </thead>
                         </table>
-                        <table id="done-datatable" class="table table-bordered dt-responsive nowrap "
-                               style="width: 49%">
-                            <thead class="table-light">
-                            <tr>
-                                <th>id</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>created_at</th>
-                                <th>actions</th>
-                            </tr>
-                            </thead>
-                        </table>
+{{--                        <table id="done-datatable" class="table table-bordered dt-responsive nowrap "--}}
+{{--                               style="width: 49%">--}}
+{{--                            <thead class="table-light">--}}
+{{--                            <tr>--}}
+{{--                                <th>id</th>--}}
+{{--                                <th>Title</th>--}}
+{{--                                <th>Description</th>--}}
+{{--                                <th>created_at</th>--}}
+{{--                                <th>actions</th>--}}
+{{--                            </tr>--}}
+{{--                            </thead>--}}
+{{--                        </table>--}}
                     </div>
                 </div>
             </div>
@@ -88,8 +88,38 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-body">
-
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <form id="addForm"  method="POST"  action="{{route('toDoList.store')}}"  enctype="multipart/form-data">
+                    @csrf
+                    <input  type="hidden" name="id" class="form-control" >
+                    <div class="row">
+                        <div class="col">
+                            <label for="Name" class="mr-sm-2">Title
+                                :</label>
+                            <input id="title" type="text" name="title" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label
+                            for="exampleFormControlTextarea1">description
+                            :</label>
+                        <input id="title" type="text" name="description" class="form-control">
+{{--                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1"--}}
+{{--                                  rows="3"></textarea>--}}
+                    </div>
+                    <br><br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">{{ trans('grades.Close') }}</button>
+                        <button type="submit"
+                                class="btn btn-success">{{ trans('grades.submit') }}</button>
+                    </div>
+                </form>
+
+
+
             </div>
         </div>
     </div>
