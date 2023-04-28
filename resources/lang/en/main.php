@@ -22,5 +22,7 @@ return [
     'proMina' => 'ProMina Agency',
     'task' => 'Task',
     'dropzone' => 'Dropzone',
-    'create-album' => 'Create Album'
+    'create-album' => 'Create Album',
+    'tasks' => 'Tasks',
+    'to-do-lists' => 'To Do Lists',
 ];

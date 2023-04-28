@@ -17,8 +17,8 @@
 <script src="{{ URL::asset('assets/js/datepicker.js') }}"></script>
 <!-- sweetalert2 -->
 <script src="{{ URL::asset('assets/js/sweetalert2.js') }}"></script>
+<script src="{{ URL::asset('assets/js/sweetalert2.min.js') }}"></script>
 <!-- toastr -->
-@yield('js')
 <script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
 <!-- validation -->
 <script src="{{ URL::asset('assets/js/validation.js') }}"></script>
@@ -26,3 +26,7 @@
 <script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
+<!-- datatables -->
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+@yield('js')

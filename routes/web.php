@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\DropZoneController;
+use App\Http\Controllers\Admin\ToDoListController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Grades\GradeController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +37,9 @@ Route::group(['prefix' => LaravelLocalization::SetLocale(),
         Route::resource('dropzone', DropZoneController::class);
         Route::post('dropzone/media', [DropZoneController::class, 'storeMedia'])->name('dropzone.storeMedia');
         Route::resource('album', AlbumController::class);
+        Route::resource('toDoList', ToDoListController::class);
+        Route::delete('toDoList/changeStatus/{id}', [ToDoListController::class, 'changeStatus'])->name('toDoList.changeStatus');
+        Route::post('toDoListt/done', [ToDoListController::class, 'done'])->name('toDoList.done');
 
 
     });

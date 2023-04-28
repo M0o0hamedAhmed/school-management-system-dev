@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Model\Album;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Model\Task;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,5 +40,9 @@ class User extends Authenticatable
 
     public function album(){
         return $this->hasMany(album::class);
+    }
+
+    public function toDoList(){
+        return $this->hasMany(Task::class);
     }
 }

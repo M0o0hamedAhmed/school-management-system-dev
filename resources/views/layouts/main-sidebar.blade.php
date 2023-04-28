@@ -33,14 +33,15 @@
                     </li>
 
                     <li>
-                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#createAlbum">
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#tasks">
                             <div class="pull-left"><i class="ti-calendar"></i><span
-                                    class="right-nav-text">{{trans('main.create-album')}}</span></div>
+                                    class="right-nav-text">{{trans('main.tasks')}}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-                        <ul id="createAlbum" class="collapse" data-parent="#sidebarnav">
+                        <ul id="tasks" class="collapse" data-parent="#sidebarnav">
                             <li><a href="{{route('album.index')}}">{{trans('main.create-album')}} </a></li>
+                            <li><a href="{{route('toDoList.index')}}">{{trans('main.to-do-lists')}} </a></li>
                         </ul>
                     </li>
 
